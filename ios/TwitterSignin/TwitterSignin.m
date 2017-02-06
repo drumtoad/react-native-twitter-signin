@@ -74,6 +74,11 @@ RCT_EXPORT_METHOD(showTweetComposerWithSharingContent:(id)json callback:(RCTResp
         
         [composer showFromViewController:rootViewController completion:^(TWTRComposerResult result) {
             NSLog(@"RCTVkSdkShare#show-presented");
+            if (result == TWTRComposerResultDone) {
+              jsCallback(@[[NSNull null], @"success"]);
+            } else {
+              jsCallback(@[@"Canceled", [NSNull null]]);
+            }
         }];
     }
 };
