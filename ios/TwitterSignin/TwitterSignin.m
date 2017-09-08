@@ -7,10 +7,10 @@
 //
 #import <Fabric/Fabric.h>
 #import <TwitterKit/TwitterKit.h>
-#import "RCTEventDispatcher.h"
+#import <React/RCTEventDispatcher.h>
 #import "TwitterSignin.h"
-#import <RCTConvert.h>
-#import <RCTUtils.h>
+#import <React/RCTConvert.h>
+#import <React/RCTUtils.h>
 
 @implementation TwitterSignin
 
@@ -74,6 +74,11 @@ RCT_EXPORT_METHOD(showTweetComposerWithSharingContent:(id)json callback:(RCTResp
         
         [composer showFromViewController:rootViewController completion:^(TWTRComposerResult result) {
             NSLog(@"RCTVkSdkShare#show-presented");
+            if (result == TWTRComposerResultDone) {
+              jsCallback(@[[NSNull null], @"success"]);
+            } else {
+              jsCallback(@[@"Canceled", [NSNull null]]);
+            }
         }];
     }
 };
